@@ -97,4 +97,7 @@
 - def loop: Boolean = loop
 - def x = loop >- this is CBN definition
 - val x = loop >- this will not terminate
-  
+
+> Use `sbt new lampepfl/dotty.g8` to create new Scala project
+> `sbt launchIDE`
+> Using openJDK8 - steer away from ORACLE
