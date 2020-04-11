@@ -101,3 +101,26 @@
 > Use `sbt new lampepfl/dotty.g8` to create new Scala project
 > `sbt launchIDE`
 > Using openJDK8 - steer away from ORACLE
+
+### Blocks and Lexical Scoping
+
+- Avoid name-space pollution
+- A `block` is delimited by `Braces` `{}`
+- `block`s are `expressions` in scala
+- A `block` is a `sequence` of `definitions` or `expressions`
+- the `last` element of a block is an `expression` that defines its value
+- A `block` may appear anywhere an `expression` can
+
+### Blocks and Visibilty
+
+- The `definition`s inside a `block` are only _visible_ from within the `block`
+- The `definitions` inside a `block` `shadow`definitions of the same names outside the `block`
+
+> Expression Block - look at it as a BIGGER EXPRESSION where the `names`(VALUES) locally available, can be used in different `block` local `expressions`
+> Can be viewed as `ONE BIG EXPRESSION` with some laws
+
+## Application Re-writing Rule
+
+- `def f(x1...xN) = B;`  =>  `f(v1,...vN)` => `[x1/v1, ..... xN/vN]B`
+- `[x1/v1, ..... xN/vN]B` means the expression `B` in which all occurences of `x``i` are replaced by`v``i`
+- `[x1/v1, ..... xN/vN]` is called a **`Substitution`**
