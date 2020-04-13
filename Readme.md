@@ -124,3 +124,15 @@
 - `def f(x1...xN) = B;`  =>  `f(v1,...vN)` => `[x1/v1, ..... xN/vN]B`
 - `[x1/v1, ..... xN/vN]B` means the expression `B` in which all occurences of `x``i` are replaced by`v``i`
 - `[x1/v1, ..... xN/vN]` is called a **`Substitution`**
+
+> Try to view the `expression` `statically` - if a complex expression then after all the argument `evaluation` and `substitutions`, see it as static exploded expression which would reduce to a `VALUE` after applying computation laws between prior `VALUE`s
+> `if-else` keeps the `exploded expression` simple to view - MENTAL MODEL
+> view `Substitution` as how we solve mathematical equation on a paper - where `VALUE`s are pitted against each other on a static mmedium - PAPER - Similar viewone should have
+
+### TAIL RECURSION
+
+- If function calls it self as a `last` action, the function's stack frame can be re-used - which is an implementation detail and should not affect the MENTAL MODEL
+- One should see it as after `EVAL` and `SUBSTITUTION` what is left in the `recursive` `expression` after few steps.
+  - If the length of this `expression` is growing then we have not properly designed our expression to be Tail recursive
+- `Tail recursive` functions are `Iterative`
+
