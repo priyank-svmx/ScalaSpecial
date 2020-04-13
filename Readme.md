@@ -136,3 +136,64 @@
   - If the length of this `expression` is growing then we have not properly designed our expression to be Tail recursive
 - `Tail recursive` functions are `Iterative`
 
+<hr/>
+
+## Higher Order Functions
+
+- Functions that take other functions as `parameters` or that `return` `functions` as result are called higher order functions
+
+### Type of a function
+
+- `A => B` is the type of a `function` that takes an argument of Type `A` and returns a result of Type `B`
+
+### Anonymous functions OR function literals
+
+- `(x: Int, y: Int) => x + y`
+  
+### Anonymous functions are Syntactic Sugar
+
+- Anonymous function `(x1: T1, x2: T2, x3: T3, ......xN: Tn) => E`
+  - can always be expressed as `{def f (x1: T1, x2: T2, x3: T3, ......xN: Tn) = E;f}`
+  
+### Currying
+
+- `sum(cube) (1,10) == (sum(cube))(1,10)`
+
+```scala
+def sum(f: Int => Int)(a: Int, b: Int) =
+if(a > b) 0 else f(a) + sum(f)(a+1,b)
+
+```
+
+- In general, a definition of a function with multiple parameter lists
+  - `def f(args1)(args2)(args3)...(argsN) = E`
+  - where `N > 1` is equivalent to
+  
+```scala
+def f(args1)(args2)(args3).. (args.N-1) = {def g(args.N) = E;g}
+```
+
+> Or for short
+
+```scala
+def f(args1)(args2)(args3).. (args.N-1) = (args.N => E)
+```
+
+#### Expansion of Multiple Parameter Lists
+
+- By repeating the above process `N` times on
+
+```scala
+def f(args1)(args2)(args3)(args.N-1)(args.N) = E
+```
+
+> TO
+
+```scala
+def f = (args1 => (args2 => ...(args.N => E)))
+```
+
+> This style of definition is called `Currying`
+> `functional` `types` associate to the right
+>
+> ***It is as good as solving Equations and veiw FP as system of Equations / EXpressions***
