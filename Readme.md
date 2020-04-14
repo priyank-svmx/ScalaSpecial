@@ -197,3 +197,92 @@ def f = (args1 => (args2 => ...(args.N => E)))
 > `functional` `types` associate to the right
 >
 > ***It is as good as solving Equations and veiw FP as system of Equations / EXpressions***
+
+<hr/>
+
+## Context-Free Syntax  in Extended Backus-Naur form(EBNF)
+
+- `|` denotes an alternative
+- `[...]` an option (0 or 1)
+- `{...}` a repetition (0 or more)
+
+### Types
+
+- `Type` = `SimpleType` | `FunctionType`
+  - `FunctionType` = `SimpleType` => `Type` | `([Types]) => Type`
+- `SimpleType` = `Ident`
+- `Types` = `Type` `{',' Type}`
+
+### A `type` can be
+
+- A `numeric type`: `Int`, `Double` (and `Byte`, `Short`, `Char`, `Long`, `Float`)
+- The `Boolean` type with the values `true` and `false`
+- The `string` type,
+- A `function type`, like `Int => Int`, `(Int,Int)=> Int`
+
+### Expressions
+
+- `Expr` = `InfixExpr` | `FunctionExpr` | `if (Expr) Expr else Expr`
+- `InfixExpr` = `PrefixExpr` | `InfixExpr` **Operator** `InfixExpr`
+- `Operator` = `ident`
+- `PrefixExpr` = ['+' | `-` | `!` | `~`] `SimpleExpr`
+- `SimpleExpr` = `ident` | `literal` | `SimpleExpr` `.` `ident` | `Block`
+- `FunctionExpr` = `Bindings` `=>` `Expr`
+
+### Definition
+
+- A `function-Definition` , like `def Square(x: Int) = x*x`
+- A `value definition`, like `val y = Square(2)`
+
+### Parameter
+
+- call-by-value parameter
+- call-by-name parameter
+
+<hr/>
+
+## Functions and Data
+
+- `class` helps define new `type`
+- `class` gives a `constructor` to define the new `type`
+
+```scala
+class Rational(x: Int, y: Int){
+  def numer = x
+  def denom = y
+}
+
+new Rational(1,2)
+```
+
+### Data Abstraction
+
+- This ability to choose `different` implementations of the `data` without affecting `clients` is called `Data Abstraction`
+
+### Access Modifier
+
+- `Private` expressions and values only visible within the block
+- `Public` expression and values are visible outside the block  
+
+### Classes and Substitution
+
+- `class C(x1,....x.M){...def f(y1,.....,y.N) = b ...}`
+  > Question - How the following exphression evaluated ?
+  > `new C(v1,...v.M).f(w1,...,w.N)`
+  > There are three substitution at play
+    > `[w1/y1,.....w.N/y.N][v1/x1,..., v.M/x.M][new C(v1,...v.M) / this]b`
+
+- Infix Notation:
+  - `r.add(s)` => `r add s`
+- Relaxed Identifiers
+  - Alphanumeric, Symbolic
+- `_` underscore counts as a letter
+- Alphanumeric Identifiers can also end in an underscore, followed by operators
+- `unary` operators can be defined for a `class` ( `class` model of `scala`) `def unary_ - : Rational = ...`
+
+#### Operator Precedence - user defined operators
+
+- The `precedence` of an `operator` is determined by its `first` `character`
+  - `[special characters]` > `[*, /, %,]` > `[+, _]` > `:` > `[!, =]` > `[< >]` > `[&]` > `^` > `|` > `[all letters]`
+  - `a + b ^? c ?^ d less a ==> b| c` => `(a + b) ^? (c ?^ d) less a ==> b| c`
+    - **check operator's first character**
